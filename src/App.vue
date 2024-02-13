@@ -13,8 +13,8 @@ const testData: ColumnProps[] = [
   {
     id: 1,
     title: 'test1的专栏',
-    description: '这是test1专栏，有一段非常有意思的简介，可以更新下',
-    avatar: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5f3e3a17c305b1070f455202.jpg?x-oss-process=image/resize,m_pad,h_50,w_50'
+    description: '这是test1专栏，有一段非常有意思的简介，可以更新下'
+    // avatar: 'http://vue-maker.oss-cn-hangzhou.aliyuncs.com/vue-marker/5f3e3a17c305b1070f455202.jpg?x-oss-process=image/resize,m_pad,h_50,w_50'
   },
   {
     id: 2,
