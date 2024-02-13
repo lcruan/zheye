@@ -1,16 +1,20 @@
 <template>
   <div class="dropdown" ref="dropdownRef">
-    <a href="#" class="btn btn-outline-light my-2 dropdown-toggle" @click.prevent="toggleOpen">{{
-      title
-    }}</a>
-    <ul class="dropdown-menu" :style="{ display: 'block'}" v-if="isOpen">
+    <a
+      href="#"
+      class="btn btn-outline-light my-2 dropdown-toggle"
+      @click.prevent="toggleOpen"
+      >{{ title }}</a
+    >
+    <ul class="dropdown-menu" :style="{ display: 'block' }" v-if="isOpen">
       <slot></slot>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, onMounted, onUnmounted } from 'vue'
+import { defineComponent, ref, watch } from 'vue'
+import useClickOutside from '../hooks/useClickOutside'
 
 export default defineComponent({
   name: 'Dropdown',
@@ -28,21 +32,15 @@ export default defineComponent({
     const toggleOpen = () => {
       isOpen.value = !isOpen.value
     }
-    const handler = (e: MouseEvent) => {
-      debugger
-      if (dropdownRef.value) {
-        // contains判断是否包含另一个节点
-        if (!dropdownRef.value.contains(e.target as HTMLElement) && isOpen.value) {
-          isOpen.value = false
-        }
+
+    const isClickOutside = useClickOutside(dropdownRef)
+
+    watch(isClickOutside, () => {
+      if (isOpen.value && isClickOutside.value) {
+        isOpen.value = false
       }
-    }
-    onMounted(() => {
-      document.addEventListener('click', handler)
     })
-    onUnmounted(() => {
-      document.removeEventListener('click', handler)
-    })
+
     return {
       isOpen,
       toggleOpen,
