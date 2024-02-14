@@ -46,3 +46,15 @@ const updateValue = (e: KeyboardEvent) => {
       context.emit('update:modelValue', targetValue)
 }
 ```
+
+### $attrs 支持默认属性
+```html
+ <input
+      class="form-control"
+      :class="{'is-invalid' : inputRef.error}"
+      :value="inputRef.val"
+      @blur="validateInput"
+      @input="updateValue"
+      v-bind="$attrs"
+    />
+```

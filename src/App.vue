@@ -5,27 +5,18 @@
     <form>
       <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <validate-input :rules="emailRules" v-model="emailVal">{{ emailVal }}</validate-input>
-      </div>
-      <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">邮箱地址</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          v-model="emailRef.val"
-          @blur="validateEmail"
-        />
-        <div class="form-text" v-if="emailRef.error">{{ emailRef.message }}</div>
+        <validate-input
+          :rules="emailRules"
+          v-model="emailVal"
+          placeholder="请输入邮箱地址"
+          type="text"
+          >{{
+          emailVal
+        }}</validate-input>
       </div>
       <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">密码</label>
-        <input
-          type="password"
-          class="form-control"
-          id="exampleInputPassword1"
-        />
+        <validate-input type="password" placeholder="请输入密码"></validate-input>
       </div>
     </form>
   </div>
@@ -42,8 +33,6 @@ const currentUser: UserProps = {
   isLogin: true,
   name: 'viking'
 }
-// 邮箱校验正则表达式
-const emailReg = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 const testData: ColumnProps[] = [
   {
     id: 1,
@@ -98,22 +87,11 @@ export default defineComponent({
       error: false,
       message: ''
     })
-    // 定义email校验函数
-    const validateEmail = () => {
-      if (emailRef.val.trim() === '') {
-        emailRef.error = true
-        emailRef.message = 'can not be empty'
-      } else if (!emailReg.test(emailRef.val)) {
-        emailRef.error = true
-        emailRef.message = 'should be valid email'
-      }
-    }
 
     return {
       list: testData,
       currentUser,
       emailRef,
-      validateEmail,
       emailRules,
       emailVal
     }
