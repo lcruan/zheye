@@ -27,3 +27,22 @@ const dropdownRef = ref<null | HTMLElement>(null)
 
 ### vue3 的一个特性 hooks 自定义函数使用
 - setup中写的普通函数逻辑只能执行一次，更新的时候不会执行，所以可以使用watch来检测
+
+
+### vue3 自定义组件支持v-model
+1. 创建一个名为 modelValue 的 props 属性
+```js
+  props: {
+    rules: Array as PropType<RulesProp>,
+    modelValue: String
+  },
+```
+
+2. 更新值的时候需要发送事件 -》update:modelValue
+```js
+const updateValue = (e: KeyboardEvent) => {
+      const targetValue = (e.target as HTMLInputElement).value
+      inputRef.val = targetValue
+      context.emit('update:modelValue', targetValue)
+}
+```
